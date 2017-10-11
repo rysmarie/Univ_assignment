@@ -2,23 +2,23 @@
 
 #define N_MAX 200
 #define INF 1e8
-float dp[N_MAX];
+float memo[N_MAX];
 double _legendre(int n, double x) {
-  if (dp[n] != INF) {
-    return dp[n];
+  if (memo[n] != INF) {
+    return memo[n];
   }
-  dp[n] =
+  memo[n] =
       ((2 * n - 1) * x * _legendre(n - 1, x) - (n - 1) * _legendre(n - 2, x)) /
       n;
-  return dp[n];
+  return memo[n];
 }
 
 double legendre(int n, double x) {
   for (int i = 0; i < N_MAX; i++) {
-    dp[i] = INF;
+    memo[i] = INF;
   }
-  dp[0] = 1;
-  dp[1] = x;
+  memo[0] = 1;
+  memo[1] = x;
   return _legendre(n, x);
 }
 
