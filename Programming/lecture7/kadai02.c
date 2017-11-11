@@ -28,9 +28,7 @@ int main(int argc, char *argv[]) {
   char name[255];
   int age;
   double height, weight;
-  namelist *root, *sentinel, *nl, *last;
-
-  sentinel = (namelist *)malloc(sizeof(namelist));
+  namelist *root, *nl, *last;
 
   if ((fi = fopen(argv[1], "r")) == NULL) {
     printf("ファイル名%sが開けませんでした.\n", argv[1]);
@@ -43,7 +41,6 @@ int main(int argc, char *argv[]) {
     nl->age = age;
     nl->height = height;
     nl->weight = weight;
-    nl->next = sentinel;
     if (root == NULL) {
       root = nl;
     } else {
@@ -52,8 +49,8 @@ int main(int argc, char *argv[]) {
     last = nl;
   }
   fclose(fi);
-  for (nl = root; nl != sentinel; nl = nl->next) {
-    printf("name:%s\n\tage:%d\n\theight:%f\n\tweight:%f\n", nl->name, nl->age, 
+  for (nl = root; nl != NULL; nl = nl->next) {
+    printf("name:%s\n\tage:%d\n\theight:%f\n\tweight:%f\n", nl->name, nl->age,
            nl->height, nl->weight);
   }
   release_list(root);
